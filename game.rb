@@ -10,7 +10,6 @@ class Game
     @question = Question.new()
     @player_turn = @player1
     @player_answer = 0
-    @is_terminal = false
   end
 
   def run()
@@ -50,7 +49,6 @@ class Game
     else
       puts "#{@player_turn.name}: YES! You are correct!"
     end
-    # puts @player_answer
     puts "#{@player1.name}: #{@player1.score}/3 vs #{@player2.name}: #{@player2.score}/3"
   end
 
