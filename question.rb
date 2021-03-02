@@ -1,5 +1,5 @@
 class Question
-  attr_reader :name, :answer
+  attr_reader :name, :answer, :is_correct
   def initialize()
     @name = ''
     @answer = 0

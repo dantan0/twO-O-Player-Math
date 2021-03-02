@@ -9,12 +9,14 @@ class Game
     @player2 = Player.new('Player 2')
     @question = Question.new()
     @player_turn = @player1
+    @player_answer = 0
     @is_terminal = false
   end
 
   def run()
-    while is_terminal == false
+    while true
       play()
+      break if is_terminal()
       display_score()
       switch_turn()
     end
@@ -24,13 +26,10 @@ class Game
 
   def play()
     display_question()
-    player_answer = gets.chomp().to_i
+    @player_answer = gets.chomp().to_i
 
-    if @question.verify_answer(player_answer) == false
-      puts @player_turn.name + ": Seriously? NO!"
+    if @question.verify_answer(@player_answer) == false
       @player_turn.reduce_lives()
-    else
-      puts @player_turn.name + ": YES! You are correct!"
     end
   end
 
@@ -46,12 +45,16 @@ class Game
   end
 
   def display_score()
+    if @question.verify_answer(@player_answer) == false
+      puts "#{@player_turn.name}: Seriously? NO!"
+    else
+      puts "#{@player_turn.name}: YES! You are correct!"
+    end
+    # puts @player_answer
     puts "#{@player1.name}: #{@player1.score}/3 vs #{@player2.name}: #{@player2.score}/3"
   end
 
   def display_result()
-    puts ""
-
     if @player1.is_alive
       puts "#{@player1.name} wins with a score of #{@player1.score}!"
     else
